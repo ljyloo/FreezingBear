@@ -1,5 +1,6 @@
 ![image](https://github.com/FreezingBear/FreezingBear/blob/master/src/main/resources/Logo.jpg)
 # FreezingBear
+![image](https://github.com/FreezingBear/FreezingBear/blob/master/src/main/resources/Version.jpg)
 A plugin supports Minecraft:Pocket Edition join CraftBukkit Server. In fact, it supports different MCPE versions!
 
 Compatible with:
