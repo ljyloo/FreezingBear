@@ -3,6 +3,8 @@ package com.freezingbear.network.bridge.pe.protocol.raknet;
 import com.freezingbear.network.bridge.pe.protocol.RaknetPacket;
 import com.sun.xml.internal.messaging.saaj.util.ByteInputStream;
 
+import java.net.SocketAddress;
+
 /**
  * Created by FreezingBear Team.
  */
@@ -15,14 +17,19 @@ import com.sun.xml.internal.messaging.saaj.util.ByteInputStream;
  */
 public class UnconnectedPing extends RaknetPacket {
 
-    private long pingID;
+    private long pingId;
 
-    public UnconnectedPing(ByteInputStream byteInputStream){
-        super(byteInputStream);
+
+    public UnconnectedPing(SocketAddress address, byte[] data){
+
+        super(address, data);
+        this.pingId = getBuffer().getLong();
+        getBuffer().get(magic);
     }
 
 
-    public long getPingID() {
-        return pingID;
+    public long getPingId(){
+
+        return pingId;
     }
 }

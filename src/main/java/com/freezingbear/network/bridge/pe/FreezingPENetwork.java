@@ -7,6 +7,7 @@ import com.freezingbear.network.bridge.pe.protocol.ReceivedPacket;
 import com.freezingbear.network.bridge.pe.protocol.raknet.RaknetInfo;
 import com.freezingbear.network.bridge.pe.protocol.raknet.UnconnectedPing;
 import com.freezingbear.network.bridge.pe.protocol.raknet.UnconnectedPong;
+import com.freezingbear.util.ServerID;
 
 import java.net.DatagramPacket;
 import java.net.InetSocketAddress;
@@ -37,13 +38,14 @@ public class FreezingPENetwork extends ServerThread implements NetworkBridge {
     private void handlePacket(DatagramPacket packet) {
         synchronized (this){
             ReceivedPacket p = new ReceivedPacket(packet.getSocketAddress(), packet.getData());
-            ByteBuffer byteBuffer = p.getBuffer();
-            byte packetID = byteBuffer.get();
-            switch (packetID){
+            if(plugin.debug){
+                plugin.getLogger().info("Processing Packet PID:" + p.packetId);
+            }
+            switch (p.packetId){
                 case RaknetInfo.UNCONNECTED_PING:
-                    //UnconnectedPing ping = new UnconnectedPing(byteBuffer);
-                    UnconnectedPong pong = new UnconnectedPong();
-
+                    UnconnectedPing ping = new UnconnectedPing(packet.getSocketAddress(), packet.getData();
+                    UnconnectedPong pong = new UnconnectedPong(ping.getPingId(), ServerID.getServerID(), ping.magic, "[FreezingBear] Minecraft Server");
+                    this.socket.send(pong.getByteOutputStream().toByteArray(), packet.getSocketAddress());
                     break;
                 case RaknetInfo.OPEN_CONNECTION_REQUEST_1:
                     break;

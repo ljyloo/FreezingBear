@@ -3,7 +3,7 @@ package com.freezingbear.network.bridge.pe.protocol.raknet;
 /**
  * Created by FreezingBear Team.
  */
-public class RaknetInfo {
+public interface RaknetInfo {
 
     /**
      *

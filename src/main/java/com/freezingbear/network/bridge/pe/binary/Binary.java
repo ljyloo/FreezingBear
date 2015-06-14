@@ -32,34 +32,5 @@ public class Binary {
         return re;
     }
 
-    //FreezingBear uses ByteBuffer to read packets, but I still wrote the reading part.
-
-    public static long read(byte[] buff){
-        return read(buff, 0, buff.length, ByteOrder.BIG_ENDIAN);
-    }
-
-    public static long read(byte[] buff, ByteOrder currentEndianness){
-        return read(buff, 0, buff.length, currentEndianness);
-    }
-
-    public static long read(byte[] buff, int start, int end){
-        return read(buff, start, end, ByteOrder.BIG_ENDIAN);
-    }
-
-    public static long read(byte[] buff, int start, int end, ByteOrder currentEndianness){
-        long b = 0;
-        for (int i = 0; i< end; i++){
-            int order;
-            if(currentEndianness == endianness){
-                order = i + start;
-            }else{
-                order = --end + start - i;
-            }
-            b = b << 8;
-            b = b | (buff[order] & 0xff);
-        }
-        return b;
-    }
-
 
 }

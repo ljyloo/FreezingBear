@@ -29,7 +29,6 @@ public class FreezingUDPSocket extends DatagramSocket implements NetworkThread {
         bind(address);
     }
 
-    @Override
     public void run() {
         Thread.currentThread().setName("FreezingUDPSocket");
         listening = true;

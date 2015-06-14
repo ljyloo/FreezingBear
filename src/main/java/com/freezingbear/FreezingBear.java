@@ -15,6 +15,8 @@ import org.bukkit.scheduler.BukkitRunnable;
  */
 public class FreezingBear extends JavaPlugin {
 
+    public boolean debug;
+
     private FreezingNetworkManager networkManager;
 
     private static FreezingBear instance;
@@ -29,6 +31,7 @@ public class FreezingBear extends JavaPlugin {
     public void onEnable(){
         instance = this;
         saveDefaultConfig();
+        this.debug = getConfig().getBoolean("debug");
         getLogger().info(Color.GREEN + "FreezingBear " + FreezingVersion.FREEZINGBEARVERISON + " " + FreezingVersion.BUILDINFO + ", for Minecraft " + FreezingVersion.MCPCVERSION + ", Minecraft: Pocket Edition " + FreezingVersion.MCPEVERSION);
         initTimer();
         new ServerID();
@@ -40,7 +43,6 @@ public class FreezingBear extends JavaPlugin {
     private void initTimer() {
         new BukkitRunnable(){
 
-            @Override
             public void run() {
                 FreezingBear.instance.onTick();
             }
