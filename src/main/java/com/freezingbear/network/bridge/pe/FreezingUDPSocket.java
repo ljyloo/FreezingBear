@@ -3,6 +3,7 @@ package com.freezingbear.network.bridge.pe;
 import com.freezingbear.FreezingBear;
 import com.freezingbear.factory.threads.NetworkThread;
 import org.apache.logging.log4j.Level;
+import org.bukkit.ChatColor;
 
 import java.io.IOException;
 import java.net.*;
@@ -14,19 +15,13 @@ import java.util.Queue;
  */
 public class FreezingUDPSocket extends DatagramSocket implements NetworkThread {
 
-    private final FreezingBear plugin;
+    private FreezingBear plugin;
     private SocketAddress address;
     private Queue<DatagramPacket> queue = new LinkedList<DatagramPacket>();
     public boolean listening = false;
 
-    public FreezingUDPSocket(SocketAddress bindaddr, FreezingBear plugin) throws SocketException {
-        super();
-        this.address = bindaddr;
-        this.plugin = plugin;
-        setBroadcast(true);
-        setSendBufferSize(1024 * 1024 * 8);
-        setReceiveBufferSize(1024 * 1024);
-        bind(address);
+    public FreezingUDPSocket(SocketAddress bindaddr) throws SocketException {
+        super(bindaddr);
     }
 
     public void run() {
@@ -52,10 +47,6 @@ public class FreezingUDPSocket extends DatagramSocket implements NetworkThread {
             super.send(p);
         }catch (Exception e){
             return false;
-        }
-        if(plugin.getConfig().getBoolean("debug")){
-            //TODO
-            //plugin.getLogger().info("");
         }
         return true;
     }

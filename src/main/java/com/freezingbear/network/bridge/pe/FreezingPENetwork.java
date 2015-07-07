@@ -1,6 +1,7 @@
 package com.freezingbear.network.bridge.pe;
 
 import com.freezingbear.FreezingBear;
+import com.freezingbear.factory.manager.ThreadManager;
 import com.freezingbear.factory.threads.ServerThread;
 import com.freezingbear.network.NetworkBridge;
 import com.freezingbear.network.bridge.pe.protocol.ReceivedPacket;
@@ -8,10 +9,9 @@ import com.freezingbear.network.bridge.pe.protocol.raknet.RaknetInfo;
 import com.freezingbear.network.bridge.pe.protocol.raknet.UnconnectedPing;
 import com.freezingbear.network.bridge.pe.protocol.raknet.UnconnectedPong;
 import com.freezingbear.util.ServerID;
+import org.bukkit.ChatColor;
 
-import java.net.DatagramPacket;
-import java.net.InetSocketAddress;
-import java.net.SocketException;
+import java.net.*;
 import java.nio.ByteBuffer;
 
 /**
@@ -21,6 +21,7 @@ public class FreezingPENetwork extends ServerThread implements NetworkBridge {
 
 
     private FreezingUDPSocket socket;
+    private Thread socketThread;
 
     private FreezingBear plugin;
 
@@ -31,8 +32,13 @@ public class FreezingPENetwork extends ServerThread implements NetworkBridge {
     public void onTick(){
         DatagramPacket packet = null;
         while ((packet = socket.recive()) != null){
+            plugin.consoleCommandSender.sendMessage(ChatColor.RED + "[FreezingBear][DEBUG] Recived Packet!");
             this.handlePacket(packet);
         }
+    }
+
+    public void shutdown() {
+        socket.close();
     }
 
     private void handlePacket(DatagramPacket packet) {
@@ -41,9 +47,11 @@ public class FreezingPENetwork extends ServerThread implements NetworkBridge {
             if(plugin.debug){
                 plugin.getLogger().info("Processing Packet PID:" + p.packetId);
             }
-            switch (p.packetId){
+            switch (p.getPacketID() & 0xFF){
                 case RaknetInfo.UNCONNECTED_PING:
-                    UnconnectedPing ping = new UnconnectedPing(packet.getSocketAddress(), packet.getData();
+                    plugin.getLogger().info("Processing Packet UNCONNECTED_PING");
+                    UnconnectedPing ping = new UnconnectedPing(packet.getSocketAddress(), packet.getData());
+                    plugin.getLogger().info("Ping ID:" + String.valueOf(ping.getPingId()));
                     UnconnectedPong pong = new UnconnectedPong(ping.getPingId(), ServerID.getServerID(), ping.magic, "[FreezingBear] Minecraft Server");
                     this.socket.send(pong.getByteOutputStream().toByteArray(), packet.getSocketAddress());
                     break;
@@ -79,15 +87,23 @@ public class FreezingPENetwork extends ServerThread implements NetworkBridge {
 
     @Override
     public void run(){
-        String ip = (plugin.getConfig().getString("ip") == null)?"localhost":plugin.getConfig().getString("ip");
+        String ip = (plugin.getConfig().getString("ip") == null)?"0.0.0.0":plugin.getConfig().getString("ip");
         int port = (plugin.getConfig().getInt("port") == 0)?19132:plugin.getConfig().getInt("port");
         try {
-            this.socket = new FreezingUDPSocket(InetSocketAddress.createUnresolved(ip,port), plugin);
-        } catch (SocketException e) {
+            plugin.consoleCommandSender.sendMessage(ChatColor.RED + "Starting Socket...");
+            socket = new FreezingUDPSocket(null);
+            socket.setBroadcast(true);
+            socket.setSendBufferSize(1024 * 1024 * 8);
+            socket.setReceiveBufferSize(1024 * 1024);
+            socket.bind(new InetSocketAddress(ip, port));
+            socketThread = new Thread(socket);
+            socketThread.start();
+        } catch (Exception e) {
             plugin.getLogger().warning("Can't start socket on " + ip + ":" + port + ", " + e.getMessage());
             plugin.getLogger().info("Disabling FreezingBear due to socket start failed.");
             this.socket.close();
             plugin.getServer().getPluginManager().disablePlugin(plugin);
+            return;
         }
         if(socket != null){
             plugin.getLogger().info("Successfully start socket on "  + ip + ":" + port + ".");

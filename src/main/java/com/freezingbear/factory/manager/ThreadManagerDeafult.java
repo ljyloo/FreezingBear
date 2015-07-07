@@ -13,8 +13,8 @@ public class ThreadManagerDeafult extends Thread implements ThreadManager {
     public ExecutorService serverThreadPool;
 
     public ThreadManagerDeafult() {
-        networkThreadPool = Executors.newFixedThreadPool(256);
-        serverThreadPool = Executors.newFixedThreadPool(256);
+        networkThreadPool = Executors.newFixedThreadPool(32);
+        serverThreadPool = Executors.newFixedThreadPool(32);
     }
 
     public void registerNetworkThread(Runnable thread){
