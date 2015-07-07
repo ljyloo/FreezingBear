@@ -3,6 +3,8 @@
 ![image](https://github.com/FreezingBear/FreezingBear/blob/master/src/main/resources/Version.jpg)
 A plugin supports Minecraft:Pocket Edition join CraftBukkit Server. In fact, it supports different MCPE versions!
 
+2015/7/7: Debug in reading packet part, but writing packet still not working, fixing it.
+
 Compatible with:
 * Bukkit/Spigot 1.8
 * Minecraft 1.8
