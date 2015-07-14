@@ -25,4 +25,11 @@ public class FreezingNetworkManager{
         }
     }
 
+    public void shutdown(){
+        Iterator i = networkBridges.keySet().iterator();
+        while(i.hasNext()){
+            networkBridges.get(i.next()).shutdown();
+        }
+    }
+
 }

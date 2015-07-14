@@ -69,6 +69,12 @@ public class FreezingBear extends JavaPlugin {
         networkManager.onTick();
         titleUpdater.onTick();
     }
+    
+    public void debug(String msg){
+        if (debug){
+            consoleCommandSender.sendMessage(ChatColor.RED + "[FreezingBear] [Debug] " + msg);
+        }
+    }
 
     public FreezingNetworkManager getNetwork() {
         return networkManager;

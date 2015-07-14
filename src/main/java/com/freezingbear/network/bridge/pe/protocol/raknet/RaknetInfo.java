@@ -17,6 +17,7 @@ public interface RaknetInfo {
     public final static byte UNCONNECTED_PING = 0x01;
     public final static byte CONNECTED_PONG = 0x03;
     public final static byte DETECT_LOST_CONNECTIONS = 0x04;
+    public final static byte INCOMPATIBLE_PROTOCOL_VERSION = 0x1A;
     public final static byte UNCONNECTED_PONG = 0x1c;
     public final static byte OPEN_CONNECTION_REQUEST_1 = 0x05;
     public final static byte OPEN_CONNECTION_REPLY_1 = 0x06;

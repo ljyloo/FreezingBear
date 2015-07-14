@@ -15,12 +15,12 @@ import java.net.SocketAddress;
  * C->S
  *
  */
-public class UnconnectedPing extends RaknetPacket {
+public class UNCONNECTED_PING extends RaknetPacket {
 
     private long pingId;
 
 
-    public UnconnectedPing(SocketAddress address, byte[] data){
+    public UNCONNECTED_PING(SocketAddress address, byte[] data){
 
         super(address, data);
         this.pingId = getBuffer().getLong();

@@ -12,4 +12,6 @@ public interface NetworkBridge extends NetworkThread{
 
     public void onTick();
 
+    public void shutdown();
+
 }
