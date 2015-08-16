@@ -10,15 +10,6 @@ import java.util.HashMap;
  */
 public class FreezingPEConveterManager extends ConverterManager {
 
-    private static FreezingPEConveterManager instance;
-
-    public static FreezingPEConveterManager getInstance(){
-        if(instance == null){
-            instance = new FreezingPEConveterManager();
-        }
-        return instance;
-    }
-
     public HashMap<String, Converter> converters = new HashMap<String, Converter>();
 
     @Override

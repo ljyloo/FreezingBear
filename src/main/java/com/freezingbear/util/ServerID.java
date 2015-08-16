@@ -7,13 +7,13 @@ import java.util.Random;
  */
 public class ServerID {
 
-    public static volatile long serverID;
+    private static long serverID;
 
     public ServerID(){
         serverID = new Random().nextLong();
     }
 
-    public static synchronized long getServerID() {
+    public static long getServerID() {
         return serverID;
     }
 }
