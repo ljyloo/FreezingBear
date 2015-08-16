@@ -5,10 +5,10 @@ import com.freezingbear.translator.Converter;
 /**
  * Created by FreezingBear Team.
  */
-public class ItemConverter implements Converter {
+public class NetworkConverter implements Converter {
 
     static {
-        FreezingPEConveterManager.getInstance().registerConvertor(new ItemConverter(), "item");
+        FreezingPEConveterManager.getInstance().registerConvertor(new NetworkConverter(), "network");
     }
 
 }
