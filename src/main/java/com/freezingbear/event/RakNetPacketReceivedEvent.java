@@ -6,7 +6,7 @@ package com.freezingbear.event;
 public class RakNetPacketReceivedEvent extends FreezingPEEvent {
 
     private byte[] data;
-    private boolean value;
+    private boolean value = true;
     private byte packetID;
 
     public RakNetPacketReceivedEvent(byte[] data, byte pid) {
