@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class RaknetDatapack extends RaknetPacket {
 
     public int sequenceNumber;
-    public ArrayList<EncapsulatedPacket> encapsulatedPackets = new ArrayList<>();
+    public ArrayList<EncapsulatedPacket> encapsulatedPackets = new ArrayList<EncapsulatedPacket>();
 
     public RaknetDatapack(SocketAddress socketAddresses, byte[] data){
         super(socketAddresses, data);

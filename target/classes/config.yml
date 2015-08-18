@@ -1,5 +1,0 @@
-ip: localhost
-port: 19132
-max-players: 20
-white-list: false
-enable-bukkit-plugins: true

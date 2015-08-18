@@ -1,8 +1,0 @@
-name: FreezingBear
-main: com.freezingbear.FreezingBear
-version: 1.0
-commands:
-  freezingbear:
-    description: Displays your position or teleports you to another.
-    usage: "Usage: freezingbear <subcommand>"
-    alias: fb

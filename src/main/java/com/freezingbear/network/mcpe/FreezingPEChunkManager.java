@@ -1,4 +1,4 @@
-package com.freezingbear.network;
+package com.freezingbear.network.mcpe;
 
 import com.freezingbear.chunk.ChunkManager;
 
