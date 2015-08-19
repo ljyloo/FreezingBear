@@ -1,8 +1,9 @@
 package com.freezingbear;
 
 import com.freezingbear.command.CommandHandler;
+import com.freezingbear.factory.FactoryDefault;
 import com.freezingbear.network.FreezingNetworkManager;
-import com.freezingbear.network.mcpe.FreezingPENetwork;
+import com.freezingbear.network.mcpe.FreezingPENetworkManager;
 import com.freezingbear.util.FreezingVersion;
 import com.freezingbear.util.ServerID;
 import com.freezingbear.util.TitleUpdater;
@@ -57,10 +58,9 @@ public class FreezingBear extends JavaPlugin implements Listener{
         //  -Network
         new ServerID();
         networkManager = new FreezingNetworkManager();
-        FreezingPENetwork freezingPENetwork = new FreezingPENetwork(this);
-        networkManager.registerNetworkBridge(freezingPENetwork);
-        freezingPENetwork.setName("FreezingPENetwork");
-        freezingPENetwork.start();
+        FreezingPENetworkManager freezingPENetworkManager = new FreezingPENetworkManager(this);
+        networkManager.registerNetworkBridge(freezingPENetworkManager);
+        FactoryDefault.getThreadManager().registerNetworkThread(freezingPENetworkManager);
 
         this.getServer().getPluginManager().registerEvents(this,this);
 

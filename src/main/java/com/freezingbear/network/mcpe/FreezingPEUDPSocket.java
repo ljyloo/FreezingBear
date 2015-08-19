@@ -2,7 +2,7 @@ package com.freezingbear.network.mcpe;
 
 import com.freezingbear.FreezingBear;
 import com.freezingbear.factory.threads.NetworkThread;
-import com.freezingbear.network.mcpe.protocol.Packet;
+import com.freezingbear.network.mcpe.protocol.packet.Packet;
 
 import java.net.*;
 import java.util.LinkedList;
@@ -12,6 +12,8 @@ import java.util.Queue;
  * Created by FreezigBear Team.
  */
 public class FreezingPEUDPSocket extends DatagramSocket implements NetworkThread {
+
+    //Could not extends java.net.Socket cause MCPE uses UDP ;)
 
     private FreezingBear plugin;
     private SocketAddress address;
@@ -29,7 +31,7 @@ public class FreezingPEUDPSocket extends DatagramSocket implements NetworkThread
             try {
                 DatagramPacket packet = new DatagramPacket(new byte[1024 * 1024], 1024 * 1024);
                 super.receive(packet);
-                synchronized(queue.getClass()) {
+                synchronized (queue.getClass()) {
                     queue.offer(packet);
                 }
             } catch (Exception e) {
