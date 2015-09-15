@@ -22,6 +22,6 @@ Most of the blocks, items doesn't exist in PE, so FreezingBear just ignore them.
 ## Does it support Bukkit plugins?
 Mostly. FreezingBear gives PE player separate Player class and Entity class, same to CraftPlayer and EntityPlayer class.
 
-## Can I contribe?
+## Can I contribute?
 Ofcourse, the project will be much better with your help! Check out the latest develop version.
 If you knows Minecraft PE's protocol and you can do programming works using Java, please contect us by email.
